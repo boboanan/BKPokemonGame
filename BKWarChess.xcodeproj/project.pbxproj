@@ -1,0 +1,436 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		97062CC61B9971D1002DDFC5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97062CC51B9971D1002DDFC5 /* main.m */; };
+		97062CC91B9971D1002DDFC5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97062CC81B9971D1002DDFC5 /* AppDelegate.m */; };
+		97062CD11B9971D1002DDFC5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97062CD01B9971D1002DDFC5 /* Images.xcassets */; };
+		97062CE01B9971D1002DDFC5 /* BKWarChessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 97062CDF1B9971D1002DDFC5 /* BKWarChessTests.m */; };
+		97F8820A1B99D841006E7D31 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F882091B99D841006E7D31 /* UIView+Extension.m */; };
+		97F8820E1B99E89B006E7D31 /* BKPersonBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F8820D1B99E89B006E7D31 /* BKPersonBtn.m */; };
+		97F882461B99F28B006E7D31 /* BKWarChessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F882451B99F28B006E7D31 /* BKWarChessController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		97062CDA1B9971D1002DDFC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97062CB81B9971D1002DDFC5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97062CBF1B9971D1002DDFC5;
+			remoteInfo = BKWarChess;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		97062CC01B9971D1002DDFC5 /* BKWarChess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKWarChess.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		97062CC41B9971D1002DDFC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97062CC51B9971D1002DDFC5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		97062CC71B9971D1002DDFC5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		97062CC81B9971D1002DDFC5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		97062CD01B9971D1002DDFC5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		97062CD91B9971D1002DDFC5 /* BKWarChessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BKWarChessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		97062CDE1B9971D1002DDFC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97062CDF1B9971D1002DDFC5 /* BKWarChessTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKWarChessTests.m; sourceTree = "<group>"; };
+		97F882081B99D841006E7D31 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		97F882091B99D841006E7D31 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		97F8820C1B99E89B006E7D31 /* BKPersonBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPersonBtn.h; sourceTree = "<group>"; };
+		97F8820D1B99E89B006E7D31 /* BKPersonBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKPersonBtn.m; sourceTree = "<group>"; };
+		97F882441B99F28B006E7D31 /* BKWarChessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKWarChessController.h; sourceTree = "<group>"; };
+		97F882451B99F28B006E7D31 /* BKWarChessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKWarChessController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		97062CBD1B9971D1002DDFC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97062CD61B9971D1002DDFC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		97062CB71B9971D1002DDFC5 = {
+			isa = PBXGroup;
+			children = (
+				97062CC21B9971D1002DDFC5 /* BKWarChess */,
+				97062CDC1B9971D1002DDFC5 /* BKWarChessTests */,
+				97062CC11B9971D1002DDFC5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		97062CC11B9971D1002DDFC5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				97062CC01B9971D1002DDFC5 /* BKWarChess.app */,
+				97062CD91B9971D1002DDFC5 /* BKWarChessTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		97062CC21B9971D1002DDFC5 /* BKWarChess */ = {
+			isa = PBXGroup;
+			children = (
+				97F882441B99F28B006E7D31 /* BKWarChessController.h */,
+				97F882451B99F28B006E7D31 /* BKWarChessController.m */,
+				97F8820B1B99E873006E7D31 /* View */,
+				97F882071B99D834006E7D31 /* Lib */,
+				97062CC71B9971D1002DDFC5 /* AppDelegate.h */,
+				97062CC81B9971D1002DDFC5 /* AppDelegate.m */,
+				97062CD01B9971D1002DDFC5 /* Images.xcassets */,
+				97062CC31B9971D1002DDFC5 /* Supporting Files */,
+			);
+			path = BKWarChess;
+			sourceTree = "<group>";
+		};
+		97062CC31B9971D1002DDFC5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				97062CC41B9971D1002DDFC5 /* Info.plist */,
+				97062CC51B9971D1002DDFC5 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		97062CDC1B9971D1002DDFC5 /* BKWarChessTests */ = {
+			isa = PBXGroup;
+			children = (
+				97062CDF1B9971D1002DDFC5 /* BKWarChessTests.m */,
+				97062CDD1B9971D1002DDFC5 /* Supporting Files */,
+			);
+			path = BKWarChessTests;
+			sourceTree = "<group>";
+		};
+		97062CDD1B9971D1002DDFC5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				97062CDE1B9971D1002DDFC5 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		97F882071B99D834006E7D31 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				97F882081B99D841006E7D31 /* UIView+Extension.h */,
+				97F882091B99D841006E7D31 /* UIView+Extension.m */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		97F8820B1B99E873006E7D31 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				97F8820C1B99E89B006E7D31 /* BKPersonBtn.h */,
+				97F8820D1B99E89B006E7D31 /* BKPersonBtn.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		97062CBF1B9971D1002DDFC5 /* BKWarChess */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 97062CE31B9971D1002DDFC5 /* Build configuration list for PBXNativeTarget "BKWarChess" */;
+			buildPhases = (
+				97062CBC1B9971D1002DDFC5 /* Sources */,
+				97062CBD1B9971D1002DDFC5 /* Frameworks */,
+				97062CBE1B9971D1002DDFC5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BKWarChess;
+			productName = BKWarChess;
+			productReference = 97062CC01B9971D1002DDFC5 /* BKWarChess.app */;
+			productType = "com.apple.product-type.application";
+		};
+		97062CD81B9971D1002DDFC5 /* BKWarChessTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 97062CE61B9971D1002DDFC5 /* Build configuration list for PBXNativeTarget "BKWarChessTests" */;
+			buildPhases = (
+				97062CD51B9971D1002DDFC5 /* Sources */,
+				97062CD61B9971D1002DDFC5 /* Frameworks */,
+				97062CD71B9971D1002DDFC5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				97062CDB1B9971D1002DDFC5 /* PBXTargetDependency */,
+			);
+			name = BKWarChessTests;
+			productName = BKWarChessTests;
+			productReference = 97062CD91B9971D1002DDFC5 /* BKWarChessTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		97062CB81B9971D1002DDFC5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "B&K";
+				TargetAttributes = {
+					97062CBF1B9971D1002DDFC5 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+					97062CD81B9971D1002DDFC5 = {
+						CreatedOnToolsVersion = 6.3;
+						TestTargetID = 97062CBF1B9971D1002DDFC5;
+					};
+				};
+			};
+			buildConfigurationList = 97062CBB1B9971D1002DDFC5 /* Build configuration list for PBXProject "BKWarChess" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 97062CB71B9971D1002DDFC5;
+			productRefGroup = 97062CC11B9971D1002DDFC5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				97062CBF1B9971D1002DDFC5 /* BKWarChess */,
+				97062CD81B9971D1002DDFC5 /* BKWarChessTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		97062CBE1B9971D1002DDFC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97062CD11B9971D1002DDFC5 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97062CD71B9971D1002DDFC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		97062CBC1B9971D1002DDFC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97F882461B99F28B006E7D31 /* BKWarChessController.m in Sources */,
+				97062CC91B9971D1002DDFC5 /* AppDelegate.m in Sources */,
+				97F8820A1B99D841006E7D31 /* UIView+Extension.m in Sources */,
+				97F8820E1B99E89B006E7D31 /* BKPersonBtn.m in Sources */,
+				97062CC61B9971D1002DDFC5 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97062CD51B9971D1002DDFC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97062CE01B9971D1002DDFC5 /* BKWarChessTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		97062CDB1B9971D1002DDFC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 97062CBF1B9971D1002DDFC5 /* BKWarChess */;
+			targetProxy = 97062CDA1B9971D1002DDFC5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		97062CE11B9971D1002DDFC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		97062CE21B9971D1002DDFC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		97062CE41B9971D1002DDFC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BKWarChess/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		97062CE51B9971D1002DDFC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BKWarChess/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		97062CE71B9971D1002DDFC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BKWarChessTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BKWarChess.app/BKWarChess";
+			};
+			name = Debug;
+		};
+		97062CE81B9971D1002DDFC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = BKWarChessTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BKWarChess.app/BKWarChess";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		97062CBB1B9971D1002DDFC5 /* Build configuration list for PBXProject "BKWarChess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97062CE11B9971D1002DDFC5 /* Debug */,
+				97062CE21B9971D1002DDFC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		97062CE31B9971D1002DDFC5 /* Build configuration list for PBXNativeTarget "BKWarChess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97062CE41B9971D1002DDFC5 /* Debug */,
+				97062CE51B9971D1002DDFC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		97062CE61B9971D1002DDFC5 /* Build configuration list for PBXNativeTarget "BKWarChessTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97062CE71B9971D1002DDFC5 /* Debug */,
+				97062CE81B9971D1002DDFC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 97062CB81B9971D1002DDFC5 /* Project object */;
+}
