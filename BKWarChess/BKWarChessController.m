@@ -55,6 +55,11 @@
 /**portraitB队头像*/
 @property (nonatomic, weak)UIButton *portraitB;
 
+/**A获得小精灵*/
+@property (nonatomic, weak)UILabel *getSpriteLabelA;
+/**B获得小精灵*/
+@property (nonatomic, weak)UILabel *getSpriteLabelB;
+
 /**回合轮到谁*/
 @property (nonatomic)int turning;
 @end
@@ -185,12 +190,14 @@
         if(self.turning % 2 == 1){
                 [self.personBtnA btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
             if(mapScore[self.personBtnA.i][self.personBtnA.j] == 2&&self.personBtnA.isMoved){
+                self.getSpriteLabelA.text = @"获得1只小精灵";
                 [self performSelector:@selector(playAnimation:) withObject:self.personBtnA afterDelay:0.5];
             }
         }else if(self.turning % 2 == 0){
                 [self.personBtnB btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
     
             if(mapScore[self.personBtnB.i][self.personBtnB.j] == 2&&self.personBtnB.isMoved){
+                self.getSpriteLabelB.text = @"获得1只小精灵";
                 [self performSelector:@selector(playAnimation:) withObject:self.personBtnB afterDelay:0.5];
             }
         }
@@ -310,7 +317,7 @@
     self.topBtn = topBtn;
     
     UIButton *stopMusic = [[UIButton alloc] init];
-    stopMusic.frame = CGRectMake(ContentDistance, ContentDistance + CGRectGetMaxY(self.topBtn.frame), self.view.width - 2 * ContentDistance, 30);
+    stopMusic.frame = CGRectMake(ContentDistance, ContentDistance + CGRectGetMaxY(self.topBtn.frame), (self.view.width - 2 * ContentDistance)/2 - ContentDistance/2, 30);
     [stopMusic setBackgroundImage:[UIImage imageNamed:@"kuang"] forState:UIControlStateNormal];
     [stopMusic setTitle:@"停止音乐" forState:UIControlStateNormal];
     [stopMusic addTarget:self action:@selector(startOrStopMusic) forControlEvents:UIControlEventTouchUpInside];
@@ -318,7 +325,7 @@
     self.changMusic =stopMusic;
     
     UIButton *reStart = [[UIButton alloc] init];
-    reStart.frame = CGRectMake(ContentDistance, ContentDistance + CGRectGetMaxY(self.changMusic.frame), self.view.width - 2 * ContentDistance, 30);
+    reStart.frame = CGRectMake(CGRectGetMaxX(self.changMusic.frame) + ContentDistance, ContentDistance + CGRectGetMaxY(self.topBtn.frame), (self.view.width - 2 * ContentDistance)/2 - ContentDistance/2, 30);
     [reStart setBackgroundImage:[UIImage imageNamed:@"kuang"] forState:UIControlStateNormal];
     [reStart setTitle:@"重新开始" forState:UIControlStateNormal];
     [reStart addTarget:self action:@selector(restart) forControlEvents:UIControlEventTouchUpInside];
@@ -332,12 +339,36 @@
     [self.view addSubview:portraitBtnA];
     self.portraitA = portraitBtnA;
     
+    UILabel *getSpriteLabelA = [[UILabel alloc] init];
+    getSpriteLabelA.x = CGRectGetMinX(portraitBtnA.frame);
+    getSpriteLabelA.y = CGRectGetMaxY(portraitBtnA.frame);
+    getSpriteLabelA.width = portraitBtnA.width;
+    getSpriteLabelA.height = ContentDistance;
+    getSpriteLabelA.text = @"获得0支小精灵";
+    getSpriteLabelA.font = [UIFont systemFontOfSize:10];
+    getSpriteLabelA.textAlignment = NSTextAlignmentCenter;
+    getSpriteLabelA.textColor = [UIColor whiteColor];
+    [self.view addSubview:getSpriteLabelA];
+    self.getSpriteLabelA = getSpriteLabelA;
+    
     UIButton *portraitBtnB = [[UIButton alloc] init];
     portraitBtnB.frame = CGRectMake(self.view.width - ContentDistance - 80, CGRectGetMaxY(self.map.frame) + ContentDistance * 3, 80, 80);
     [portraitBtnB setBackgroundImage:[UIImage imageNamed:@"person_b"] forState:UIControlStateNormal];
     portraitBtnB.userInteractionEnabled = NO;
     [self.view addSubview:portraitBtnB];
     self.portraitB = portraitBtnB;
+    
+    UILabel *getSpriteLabelB = [[UILabel alloc] init];
+    getSpriteLabelB.x = CGRectGetMinX(portraitBtnB.frame);
+    getSpriteLabelB.y = CGRectGetMaxY(portraitBtnB.frame);
+    getSpriteLabelB.width = portraitBtnB.width;
+    getSpriteLabelB.height = ContentDistance;
+    getSpriteLabelB.text = @"获得0支小精灵";
+    getSpriteLabelB.font = [UIFont systemFontOfSize:10];
+    getSpriteLabelB.textAlignment = NSTextAlignmentCenter;
+    getSpriteLabelB.textColor = [UIColor whiteColor];
+    [self.view addSubview:getSpriteLabelB];
+    self.getSpriteLabelB = getSpriteLabelB;
     
     UIButton *vsBtn = [[UIButton alloc] init];
     vsBtn.frame = CGRectMake(0, 0, 40, 40);
@@ -380,6 +411,7 @@
     self.personBtnB.center = CGPointMake(CGRectGetMaxX(self.map.frame), CGRectGetMaxY(self.map.frame));
     self.turning = 1;
     [self updateTopBtn];
+    
 }
 
 -(void)startOrStopMusic
