@@ -12,7 +12,8 @@
 
 #define ContentDistance 10
 #define MoveDistance self.map.width / 4
-
+#define NumOfMega 3
+#define NumOfSprite 3
 @interface BKWarChessController (){
     int mapScore[5][5];
 }
@@ -26,9 +27,40 @@
 
 @property (weak, nonatomic) UIButton * portraitBtnA;
 
+/**精灵数组*/
+@property (strong, nonatomic)NSMutableArray *sprites;
+/**mega石数组*/
+@property (strong, nonatomic)NSMutableArray *megas;
 @end
 
 @implementation BKWarChessController
+//mega石数组
+-(NSMutableArray *)megas
+{
+    if(_megas == nil){
+        _megas = [NSMutableArray array];
+        for(int i = 0; i<NumOfMega; i++ ){
+            BKPersonBtn *mega = [BKPersonBtn getMegaBtn];
+            [self.view addSubview:mega];
+            [_megas addObject:mega];
+        }
+    }
+    return _megas;
+}
+
+//小精灵数组
+-(NSMutableArray *)sprites
+{
+    if(_sprites == nil){
+        _sprites = [NSMutableArray array];
+        for(int i = 0; i<NumOfSprite; i++ ){
+            BKPersonBtn *sprite = [BKPersonBtn getRandomSprite];
+            [self.view addSubview:sprite];
+            [_sprites addObject:sprite];
+        }
+    }
+    return _sprites;
+}
 
 -(UIImageView *)map
 {
@@ -47,7 +79,7 @@
 -(BKPersonBtn *)personBtnA
 {
     if(_personBtnA == nil){
-        BKPersonBtn *btn = [BKPersonBtn getBKPersonBtn];
+        BKPersonBtn *btn = [BKPersonBtn getBKPersonBtnWithImageName:@"circle_a"];
         btn.center = CGPointMake(CGRectGetMaxX(self.map.frame), CGRectGetMaxY(self.map.frame));
         [btn addTarget:self action:@selector(personMove:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn];
@@ -59,9 +91,8 @@
 -(BKPersonBtn *)personBtnB
 {
     if(_personBtnB == nil){
-        BKPersonBtn *btn = [BKPersonBtn getBKPersonBtn];
+        BKPersonBtn *btn = [BKPersonBtn getBKPersonBtnWithImageName:@"circle_b"];
         btn.center = CGPointMake(CGRectGetMinX(self.map.frame), CGRectGetMinY(self.map.frame));
-        [btn setBackgroundImage:[UIImage imageNamed:@"circle_b"] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(personMove:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn];
         _personBtnB = btn;
@@ -93,7 +124,10 @@
     
     self.view.backgroundColor = [UIColor blueColor];
     [self setUpUI];
+    [self updateMap];
+
 }
+
 
 -(void)initMapScore
 {
@@ -102,6 +136,13 @@
             mapScore[i][j] = 0;
         }
     }
+    mapScore[4][0] = 3;
+    mapScore[0][4] = 3;
+    mapScore[2][2] = 3;
+    
+    mapScore[1][1] = 2;
+    mapScore[1][3] = 2;
+    mapScore[3][3] = 2;
 }
 
 -(void)setUpUI
@@ -159,53 +200,81 @@
     [self.view addSubview:portraitLabelB];
     
     //map上元素
-    BKPersonBtn *megaBtnA = [BKPersonBtn getBKPersonBtn];
-    megaBtnA.center = CGPointMake(CGRectGetMaxX(self.map.frame), CGRectGetMinY(self.map.frame));
-    [megaBtnA setBackgroundImage:[UIImage imageNamed:@"mega"] forState:UIControlStateNormal];
-    megaBtnA.userInteractionEnabled = NO;
-    [self.view addSubview:megaBtnA];
+//    BKPersonBtn *megaBtnA = [BKPersonBtn getMegaBtn];
+//    megaBtnA.center = CGPointMake(CGRectGetMaxX(self.map.frame), CGRectGetMinY(self.map.frame));
+//    [self.view addSubview:megaBtnA];
+//    
+//    BKPersonBtn *megaBtnB = [BKPersonBtn getMegaBtn];
+//    megaBtnB.center = CGPointMake(CGRectGetMaxX(self.map.frame) - 2 * MoveDistance, CGRectGetMinY(self.map.frame) + 2 * MoveDistance);
+//    [self.view addSubview:megaBtnB];
+//    
+//    BKPersonBtn *megaBtnC = [BKPersonBtn getMegaBtn];
+//    megaBtnC.center = CGPointMake(CGRectGetMinX(self.map.frame), CGRectGetMaxY(self.map.frame));
+//    [self.view addSubview:megaBtnC];
     
-    BKPersonBtn *megaBtnB = [BKPersonBtn getBKPersonBtn];
-    megaBtnB.center = CGPointMake(CGRectGetMaxX(self.map.frame) - 2 * MoveDistance, CGRectGetMinY(self.map.frame) + 2 * MoveDistance);
-    [megaBtnB setBackgroundImage:[UIImage imageNamed:@"mega"] forState:UIControlStateNormal];
-    megaBtnB.userInteractionEnabled = NO;
-    [self.view addSubview:megaBtnB];
+//    BKPersonBtn *spriteA = [BKPersonBtn getSpriteBtnWithImageName:@"dragon"];
+//    spriteA.center = CGPointMake(CGRectGetMinX(self.map.frame) + MoveDistance, CGRectGetMinY(self.map.frame) + MoveDistance);
+//    [spriteA setTitle:@"Lv.1" forState:UIControlStateNormal];
+//    [self.view addSubview:spriteA];
+//    
+//    BKPersonBtn *spriteB = [BKPersonBtn getSpriteBtnWithImageName:@"bikaqiu"];
+//    spriteB.center = CGPointMake(CGRectGetMaxX(self.map.frame) - MoveDistance, CGRectGetMaxY(self.map.frame) -  MoveDistance);
+//    [spriteB setTitle:@"Lv.1" forState:UIControlStateNormal];
+//    [self.view addSubview:spriteB];
+//    
+//    BKPersonBtn *spriteC = [BKPersonBtn getSpriteBtnWithImageName:@"flag"];
+//    spriteC.center = CGPointMake(CGRectGetMinX(self.map.frame) + MoveDistance, CGRectGetMaxY(self.map.frame) -  MoveDistance);
+//    [spriteC setTitle:@"Lv.2" forState:UIControlStateNormal];
+//    [self.view addSubview:spriteC];
     
-    BKPersonBtn *megaBtnC = [BKPersonBtn getBKPersonBtn];
-    megaBtnC.center = CGPointMake(CGRectGetMinX(self.map.frame), CGRectGetMaxY(self.map.frame));
-    [megaBtnC setBackgroundImage:[UIImage imageNamed:@"mega"] forState:UIControlStateNormal];
-    megaBtnC.userInteractionEnabled = NO;
-    [self.view addSubview:megaBtnC];
-    
-    BKPersonBtn *spriteA = [BKPersonBtn getBKPersonBtn];
-    spriteA.center = CGPointMake(CGRectGetMinX(self.map.frame) + MoveDistance, CGRectGetMinY(self.map.frame) + MoveDistance);
-    [spriteA setBackgroundImage:[UIImage imageNamed:@"dragon"] forState:UIControlStateNormal];
-    spriteA.width = 50;
-    spriteA.height = 50;
-    spriteA.userInteractionEnabled = NO;
-    [spriteA setTitle:@"Lv.1" forState:UIControlStateNormal];
-    [self.view addSubview:spriteA];
-    
-    BKPersonBtn *spriteB = [BKPersonBtn getBKPersonBtn];
-    spriteB.center = CGPointMake(CGRectGetMaxX(self.map.frame) - MoveDistance, CGRectGetMaxY(self.map.frame) -  MoveDistance);
-    [spriteB setBackgroundImage:[UIImage imageNamed:@"bikaqiu"] forState:UIControlStateNormal];
-    spriteB.width = 50;
-    spriteB.height = 50;
-    spriteB.userInteractionEnabled = NO;
-    [spriteB setTitle:@"Lv.1" forState:UIControlStateNormal];
-    [self.view addSubview:spriteB];
-    
-    BKPersonBtn *spriteC = [BKPersonBtn getBKPersonBtn];
-    spriteC.center = CGPointMake(CGRectGetMinX(self.map.frame) + MoveDistance, CGRectGetMaxY(self.map.frame) -  MoveDistance);
-    [spriteC setBackgroundImage:[UIImage imageNamed:@"flag"] forState:UIControlStateNormal];
-    spriteC.width = 50;
-    spriteC.height = 50;
-    spriteC.userInteractionEnabled = NO;
-    [spriteC setTitle:@"Lv.2" forState:UIControlStateNormal];
-    [self.view addSubview:spriteC];
+//        BKPersonBtn *spriteA = [BKPersonBtn getRandomSprite];
+//        spriteA.center = CGPointMake(CGRectGetMinX(self.map.frame) + MoveDistance, CGRectGetMinY(self.map.frame) + MoveDistance);
+//        [spriteA setTitle:@"Lv.1" forState:UIControlStateNormal];
+//        [self.view addSubview:spriteA];
+//    
+//        BKPersonBtn *spriteB = [BKPersonBtn getRandomSprite];
+//        spriteB.center = CGPointMake(CGRectGetMaxX(self.map.frame) - MoveDistance, CGRectGetMaxY(self.map.frame) -  MoveDistance);
+//        [spriteB setTitle:@"Lv.1" forState:UIControlStateNormal];
+//        [self.view addSubview:spriteB];
+//    
+//        BKPersonBtn *spriteC = [BKPersonBtn getRandomSprite];
+//        spriteC.center = CGPointMake(CGRectGetMinX(self.map.frame) + MoveDistance, CGRectGetMaxY(self.map.frame) -  MoveDistance);
+//        [spriteC setTitle:@"Lv.2" forState:UIControlStateNormal];
+//        [self.view addSubview:spriteC];
+
     
     [self personBtnA];
     [self personBtnB];
+    
+
+}
+
+-(void)updateMap
+{
+    int numMega = 0;
+    int numSprite = 0;
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j< 5; j++){
+                switch (mapScore[i][j]) {
+                    case 2:{
+                        BKPersonBtn *btn = self.sprites[numSprite];
+                        btn.center = CGPointMake(CGRectGetMinX(self.map.frame) + i *MoveDistance, CGRectGetMinY(self.map.frame) + j* MoveDistance);
+                        numSprite++;
+                        break;
+                    }
+                    case 3:
+                    {
+                        BKPersonBtn *btn = self.megas[numMega];
+                        btn.center = CGPointMake(CGRectGetMinX(self.map.frame) + i *MoveDistance, CGRectGetMinY(self.map.frame) + j* MoveDistance);
+                        numMega++;
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+            }
+        }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -11,22 +11,55 @@
 
 @implementation BKPersonBtn
 
--(instancetype)initWithFrame:(CGRect)frame
+/**人物--1*/
++(instancetype)getBKPersonBtnWithImageName:(NSString *)image
 {
-    self = [super initWithFrame:frame];
-    if(self){
-        [self setBackgroundImage:[UIImage imageNamed:@"circle_a"] forState:UIControlStateNormal];
-    }
-    return self;
-    
+    CGRect rect = CGRectMake(0, 0, 40, 40);
+    BKPersonBtn *btn = [[self alloc] initWithFrame:rect];
+    [btn setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+    btn.category = 1;
+    return btn;
 }
 
-+(instancetype)getBKPersonBtn
+/**小精灵--2*/
++(instancetype)getSpriteBtnWithImageName:(NSString *)image
 {
-   CGRect rect = CGRectMake(0, 0, 40, 40);
-    return [[self alloc] initWithFrame:rect];
+    CGRect rect = CGRectMake(0, 0, 50, 50);
+    BKPersonBtn *btn = [[self alloc] initWithFrame:rect];
+    [btn setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+    btn.userInteractionEnabled = NO;
+    btn.category = 2;
+    return btn;
 }
 
+/**小精灵--2*/
++(instancetype)getRandomSprite
+{
+    NSArray *spriteArray = @[@"bikaqiu",@"dragon",@"flag"];
+    NSArray *spriteLevel = @[@"Lv.1",@"Lv.2",@"Lv.1"];
+    int random = arc4random_uniform(spriteArray.count);
+    CGRect rect = CGRectMake(0, 0, 50, 50);
+    BKPersonBtn *btn = [[self alloc] initWithFrame:rect];
+    [btn setBackgroundImage:[UIImage imageNamed:spriteArray[random]] forState:UIControlStateNormal];
+    [btn setTitle:spriteLevel[random] forState:UIControlStateNormal];
+    btn.userInteractionEnabled = NO;
+    btn.category = 2;
+    return btn;
+}
+
+
+/**进化石--3*/
++(instancetype)getMegaBtn
+{
+    CGRect rect = CGRectMake(0, 0, 40, 40);
+    BKPersonBtn *btn = [[self alloc] initWithFrame:rect];
+    [btn setBackgroundImage:[UIImage imageNamed:@"mega"] forState:UIControlStateNormal];
+    btn.userInteractionEnabled = NO;
+    btn.category = 3;
+    return btn;
+}
+
+//判断移动并执行移动
 -(void)btnMoveMethodWithFrame:(CGRect)frame TouchPoint:(CGPoint)touchPoint
 {
     CGFloat MoveDistance = frame.size.width / 4;

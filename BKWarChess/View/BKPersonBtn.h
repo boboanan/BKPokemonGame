@@ -17,6 +17,16 @@
 @property (nonatomic)BOOL canLeft;
 @property (nonatomic)BOOL canRight;
 
-+(instancetype)getBKPersonBtn;
+/**按钮类型*/
+@property(nonatomic)int category;
+
+/**人物*/
++(instancetype)getBKPersonBtnWithImageName:(NSString *)image;
+/**小精灵*/
++(instancetype)getSpriteBtnWithImageName:(NSString *)image;
++(instancetype)getRandomSprite;
+/**进化石*/
++(instancetype)getMegaBtn;
+
 -(void)btnMoveMethodWithFrame:(CGRect)frame TouchPoint:(CGPoint)touchPoint;
 @end
