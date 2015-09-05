@@ -91,11 +91,13 @@
             if(touchPoint.x < self.x&&self.canLeft){
                 [UIView animateWithDuration:duration animations:^{
                     self.x -= MoveDistance;
+                    self.i--;
                 }];
             }
             if(touchPoint.x > self.x&&self.canRight){
                 [UIView animateWithDuration:duration animations:^{
                     self.x += MoveDistance;
+                    self.i++;
                 }];
             }
             self.canMove = false;
@@ -103,11 +105,13 @@
             if(touchPoint.y < self.y&&self.canUp){
                 [UIView animateWithDuration:duration animations:^{
                     self.y -= MoveDistance;
+                    self.j--;
                 }];
             }
             if(touchPoint.y > self.y&&self.canDown){
                 [UIView animateWithDuration:duration animations:^{
                     self.y += MoveDistance;
+                    self.j++;
                 }];
             }
             self.canMove = false;

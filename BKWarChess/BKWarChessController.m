@@ -14,6 +14,8 @@
 #define MoveDistance self.map.width / 4
 #define NumOfMega 3
 #define NumOfSprite 3
+
+
 @interface BKWarChessController (){
     int mapScore[5][5];
 }
@@ -31,6 +33,11 @@
 @property (strong, nonatomic)NSMutableArray *sprites;
 /**mega石数组*/
 @property (strong, nonatomic)NSMutableArray *megas;
+
+/**portraitA队头像*/
+@property (nonatomic, weak)UIButton *portraitA;
+/**portraitB队头像*/
+@property (nonatomic, weak)UIButton *portraitB;
 @end
 
 @implementation BKWarChessController
@@ -41,7 +48,7 @@
         _megas = [NSMutableArray array];
         for(int i = 0; i<NumOfMega; i++ ){
             BKPersonBtn *mega = [BKPersonBtn getMegaBtn];
-            [self.view addSubview:mega];
+            [self.view insertSubview:mega aboveSubview:self.map];
             [_megas addObject:mega];
         }
     }
@@ -55,7 +62,7 @@
         _sprites = [NSMutableArray array];
         for(int i = 0; i<NumOfSprite; i++ ){
             BKPersonBtn *sprite = [BKPersonBtn getRandomSprite];
-            [self.view addSubview:sprite];
+             [self.view insertSubview:sprite aboveSubview:self.map];
             [_sprites addObject:sprite];
         }
     }
@@ -70,7 +77,7 @@
         map.frame = CGRectMake(0, 0, 225, 225);
         map.image = [UIImage imageNamed:@"map"];
         map.center = CGPointMake(rect.size.width / 2, rect.size.height / 2);
-        [self.view addSubview:map];
+        [self.view insertSubview:map atIndex:1];
         _map = map;
     }
     return _map;
@@ -80,8 +87,11 @@
 {
     if(_personBtnA == nil){
         BKPersonBtn *btn = [BKPersonBtn getBKPersonBtnWithImageName:@"circle_a"];
-        btn.center = CGPointMake(CGRectGetMaxX(self.map.frame), CGRectGetMaxY(self.map.frame));
+         btn.center = CGPointMake(CGRectGetMinX(self.map.frame), CGRectGetMinY(self.map.frame));
         [btn addTarget:self action:@selector(personMove:) forControlEvents:UIControlEventTouchUpInside];
+        btn.category = 0;
+        btn.i = 0;
+        btn.j = 0;
         [self.view addSubview:btn];
         _personBtnA = btn;
     }
@@ -92,8 +102,11 @@
 {
     if(_personBtnB == nil){
         BKPersonBtn *btn = [BKPersonBtn getBKPersonBtnWithImageName:@"circle_b"];
-        btn.center = CGPointMake(CGRectGetMinX(self.map.frame), CGRectGetMinY(self.map.frame));
+        btn.center = CGPointMake(CGRectGetMaxX(self.map.frame), CGRectGetMaxY(self.map.frame));
         [btn addTarget:self action:@selector(personMove:) forControlEvents:UIControlEventTouchUpInside];
+        btn.category = 1;
+        btn.i = 4;
+        btn.j = 4;
         [self.view addSubview:btn];
         _personBtnB = btn;
     }
@@ -104,6 +117,36 @@
 -(void)personMove:(BKPersonBtn *)sender
 {
     sender.canMove = !sender.canMove;
+    
+    if(sender.category == 0){
+        self.personBtnB.canMove = !self.personBtnA.canMove;
+        
+        CGFloat duration = 0.5;
+        [UIView animateWithDuration:duration animations:^{
+            self.portraitA.width =  1.1 * self.portraitA.width ;
+            self.portraitA.height = 1.1 *self.portraitA.height;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:duration animations:^{
+                self.portraitA.width =  self.portraitA.width / 1.1;
+                self.portraitA.height = self.portraitA.height / 1.1;
+            }];
+        }];
+
+    }else if (sender.category == 1){
+        self.personBtnA.canMove = !self.personBtnB.canMove;
+        
+        CGFloat duration = 0.5;
+        [UIView animateWithDuration:duration animations:^{
+            self.portraitB.width =  1.1 * self.portraitB.width ;
+            self.portraitB.height = 1.1 *self.portraitB.height;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:duration animations:^{
+                self.portraitB.width =  self.portraitB.width / 1.1;
+                self.portraitB.height = self.portraitB.height / 1.1;
+            }];
+        }];
+    }
+
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -114,6 +157,12 @@
     //touchPoint.x ，touchPoint.y 就是触点的坐标。
     [self.personBtnA btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
     [self.personBtnB btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
+    
+    if(mapScore[self.personBtnA.i][self.personBtnA.j] == 2){
+  
+        NSLog(@"get spirit");
+    }
+    
 }
 
 
@@ -123,12 +172,13 @@
     [self initMapScore];
     
     self.view.backgroundColor = [UIColor blueColor];
+  
+    
     [self setUpUI];
-    [self updateMap];
 
 }
 
-
+//初始化地图
 -(void)initMapScore
 {
     for(int i = 0; i < 5; i++){
@@ -143,8 +193,10 @@
     mapScore[1][1] = 2;
     mapScore[1][3] = 2;
     mapScore[3][3] = 2;
+    [self updateMap];
 }
 
+//设置其他UI
 -(void)setUpUI
 {
     [self map];
@@ -165,12 +217,14 @@
     [portraitBtnA setBackgroundImage:[UIImage imageNamed:@"person_a"] forState:UIControlStateNormal];
     portraitBtnA.userInteractionEnabled = NO;
     [self.view addSubview:portraitBtnA];
+    self.portraitA = portraitBtnA;
     
     UIButton *portraitBtnB = [[UIButton alloc] init];
     portraitBtnB.frame = CGRectMake(self.view.width - ContentDistance - 80, CGRectGetMaxY(self.map.frame) + ContentDistance * 3, 80, 80);
     [portraitBtnB setBackgroundImage:[UIImage imageNamed:@"person_b"] forState:UIControlStateNormal];
     portraitBtnB.userInteractionEnabled = NO;
     [self.view addSubview:portraitBtnB];
+    self.portraitB = portraitBtnB;
     
     UIButton *vsBtn = [[UIButton alloc] init];
     vsBtn.frame = CGRectMake(0, 0, 40, 40);
@@ -198,49 +252,6 @@
     portraitLabelB.textAlignment = NSTextAlignmentCenter;
     portraitLabelB.textColor = [UIColor whiteColor];
     [self.view addSubview:portraitLabelB];
-    
-    //map上元素
-//    BKPersonBtn *megaBtnA = [BKPersonBtn getMegaBtn];
-//    megaBtnA.center = CGPointMake(CGRectGetMaxX(self.map.frame), CGRectGetMinY(self.map.frame));
-//    [self.view addSubview:megaBtnA];
-//    
-//    BKPersonBtn *megaBtnB = [BKPersonBtn getMegaBtn];
-//    megaBtnB.center = CGPointMake(CGRectGetMaxX(self.map.frame) - 2 * MoveDistance, CGRectGetMinY(self.map.frame) + 2 * MoveDistance);
-//    [self.view addSubview:megaBtnB];
-//    
-//    BKPersonBtn *megaBtnC = [BKPersonBtn getMegaBtn];
-//    megaBtnC.center = CGPointMake(CGRectGetMinX(self.map.frame), CGRectGetMaxY(self.map.frame));
-//    [self.view addSubview:megaBtnC];
-    
-//    BKPersonBtn *spriteA = [BKPersonBtn getSpriteBtnWithImageName:@"dragon"];
-//    spriteA.center = CGPointMake(CGRectGetMinX(self.map.frame) + MoveDistance, CGRectGetMinY(self.map.frame) + MoveDistance);
-//    [spriteA setTitle:@"Lv.1" forState:UIControlStateNormal];
-//    [self.view addSubview:spriteA];
-//    
-//    BKPersonBtn *spriteB = [BKPersonBtn getSpriteBtnWithImageName:@"bikaqiu"];
-//    spriteB.center = CGPointMake(CGRectGetMaxX(self.map.frame) - MoveDistance, CGRectGetMaxY(self.map.frame) -  MoveDistance);
-//    [spriteB setTitle:@"Lv.1" forState:UIControlStateNormal];
-//    [self.view addSubview:spriteB];
-//    
-//    BKPersonBtn *spriteC = [BKPersonBtn getSpriteBtnWithImageName:@"flag"];
-//    spriteC.center = CGPointMake(CGRectGetMinX(self.map.frame) + MoveDistance, CGRectGetMaxY(self.map.frame) -  MoveDistance);
-//    [spriteC setTitle:@"Lv.2" forState:UIControlStateNormal];
-//    [self.view addSubview:spriteC];
-    
-//        BKPersonBtn *spriteA = [BKPersonBtn getRandomSprite];
-//        spriteA.center = CGPointMake(CGRectGetMinX(self.map.frame) + MoveDistance, CGRectGetMinY(self.map.frame) + MoveDistance);
-//        [spriteA setTitle:@"Lv.1" forState:UIControlStateNormal];
-//        [self.view addSubview:spriteA];
-//    
-//        BKPersonBtn *spriteB = [BKPersonBtn getRandomSprite];
-//        spriteB.center = CGPointMake(CGRectGetMaxX(self.map.frame) - MoveDistance, CGRectGetMaxY(self.map.frame) -  MoveDistance);
-//        [spriteB setTitle:@"Lv.1" forState:UIControlStateNormal];
-//        [self.view addSubview:spriteB];
-//    
-//        BKPersonBtn *spriteC = [BKPersonBtn getRandomSprite];
-//        spriteC.center = CGPointMake(CGRectGetMinX(self.map.frame) + MoveDistance, CGRectGetMaxY(self.map.frame) -  MoveDistance);
-//        [spriteC setTitle:@"Lv.2" forState:UIControlStateNormal];
-//        [self.view addSubview:spriteC];
 
     
     [self personBtnA];
@@ -249,6 +260,7 @@
 
 }
 
+//更新地图上跟种类分布
 -(void)updateMap
 {
     int numMega = 0;

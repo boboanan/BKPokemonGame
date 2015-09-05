@@ -17,7 +17,13 @@
 @property (nonatomic)BOOL canLeft;
 @property (nonatomic)BOOL canRight;
 
+
+/**位置*/
+@property (nonatomic) NSUInteger i;
+@property (nonatomic) NSUInteger j;
+
 /**按钮类型*/
+//0-a队,1-b队,2-精灵,3-mega石
 @property(nonatomic)int category;
 
 /**人物*/
@@ -27,6 +33,7 @@
 +(instancetype)getRandomSprite;
 /**进化石*/
 +(instancetype)getMegaBtn;
+
 
 -(void)btnMoveMethodWithFrame:(CGRect)frame TouchPoint:(CGPoint)touchPoint;
 @end
