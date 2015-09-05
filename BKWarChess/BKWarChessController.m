@@ -10,12 +10,15 @@
 #import "UIView+Extension.h"
 #import "BKPersonBtn.h"
 
-#define MoveDistance self.map.bounds.size.height/4
 #define ContentDistance 10
 @interface BKWarChessController ()
 
 @property (weak, nonatomic) UIImageView *map;
-@property (weak, nonatomic) BKPersonBtn *personBtn;
+
+/**玩家A*/
+@property (weak, nonatomic) BKPersonBtn *personBtnA;
+/**玩家B*/
+@property (weak, nonatomic) BKPersonBtn *personBtnB;
 
 @property (weak, nonatomic) UIButton * portraitBtnA;
 
@@ -37,80 +40,45 @@
     return _map;
 }
 
--(BKPersonBtn *)personBtn
+-(BKPersonBtn *)personBtnA
 {
-    if(_personBtn == nil){
+    if(_personBtnA == nil){
         BKPersonBtn *btn = [BKPersonBtn getBKPersonBtn];
         btn.center = CGPointMake(CGRectGetMaxX(self.map.frame), CGRectGetMaxY(self.map.frame));
-        [btn addTarget:self action:@selector(personMove) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(personMove:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn];
-        _personBtn = btn;
+        _personBtnA = btn;
     }
-    return _personBtn;
+    return _personBtnA;
 }
 
--(void)personMove
+-(BKPersonBtn *)personBtnB
 {
-    self.personBtn.canMove = !self.personBtn.canMove;
+    if(_personBtnB == nil){
+        BKPersonBtn *btn = [BKPersonBtn getBKPersonBtn];
+        btn.center = CGPointMake(CGRectGetMinX(self.map.frame), CGRectGetMinY(self.map.frame));
+        [btn setBackgroundImage:[UIImage imageNamed:@"circle_b"] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(personMove:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:btn];
+        _personBtnB = btn;
+    }
+    return _personBtnB;
+}
+
+
+-(void)personMove:(BKPersonBtn *)sender
+{
+    sender.canMove = !sender.canMove;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-        if(self.personBtn.centerX >= CGRectGetMaxX(self.map.frame)){
-            self.personBtn.canRight = NO;
-        }else{
-            self.personBtn.canRight = YES;
-        }
-        if(self.personBtn.centerX <= CGRectGetMinX(self.map.frame)){
-            self.personBtn.canLeft = NO;
-        }else{
-            self.personBtn.canLeft = YES;
-        }
-        if(self.personBtn.centerY >= CGRectGetMaxY(self.map.frame)){
-            self.personBtn.canDown = NO;
-        }else{
-            self.personBtn.canDown = YES;
-        }
-        if(self.personBtn.centerY <= CGRectGetMinY(self.map.frame)){
-            self.personBtn.canUp = NO;
-        }else{
-            self.personBtn.canUp = YES;
-        }
+    UITouch *touch = [touches anyObject];
     
-    if(self.personBtn.canMove){
-        UITouch *touch = [touches anyObject];
-        
-        CGPoint touchPoint = [touch locationInView:self.view];
-        //touchPoint.x ，touchPoint.y 就是触点的坐标。
-        
-        CGFloat duration = 0.5;
-        if(fabs(touchPoint.x-self.personBtn.x)>=fabs(touchPoint.y-self.personBtn.y)){
-            if(touchPoint.x < self.personBtn.x&&self.personBtn.canLeft){
-                [UIView animateWithDuration:duration animations:^{
-                    self.personBtn.x -= MoveDistance;
-                }];
-            }
-            if(touchPoint.x > self.personBtn.x&&self.personBtn.canRight){
-                [UIView animateWithDuration:duration animations:^{
-                    self.personBtn.x += MoveDistance;
-                }];
-            }
-            self.personBtn.canMove = false;
-        }else{
-            if(touchPoint.y < self.personBtn.y&&self.personBtn.canUp){
-                [UIView animateWithDuration:duration animations:^{
-                    self.personBtn.y -= MoveDistance;
-                }];
-            }
-            if(touchPoint.y > self.personBtn.y&&self.personBtn.canDown){
-                [UIView animateWithDuration:duration animations:^{
-                    self.personBtn.y += MoveDistance;
-                }];
-            }
-            self.personBtn.canMove = false;
-        }
-        
-    }
+    CGPoint touchPoint = [touch locationInView:self.view];
+    //touchPoint.x ，touchPoint.y 就是触点的坐标。
+    [self.personBtnA btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
+    [self.personBtnB btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
 }
 
 
@@ -123,7 +91,8 @@
 -(void)setUpUI
 {
     [self map];
-    [self personBtn];
+    [self personBtnA];
+    [self personBtnB];
     UIImageView *bg = [[UIImageView alloc] initWithFrame:self.view.bounds];
     bg.image = [UIImage imageNamed:@"bg"];
     bg.userInteractionEnabled = YES;

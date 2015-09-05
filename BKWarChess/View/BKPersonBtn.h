@@ -18,4 +18,5 @@
 @property (nonatomic)BOOL canRight;
 
 +(instancetype)getBKPersonBtn;
+-(void)btnMoveMethodWithFrame:(CGRect)frame TouchPoint:(CGPoint)touchPoint;
 @end
