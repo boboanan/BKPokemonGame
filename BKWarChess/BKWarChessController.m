@@ -9,7 +9,7 @@
 #import "BKWarChessController.h"
 #import "UIView+Extension.h"
 #import "BKPersonBtn.h"
-
+#import <AVFoundation/AVFoundation.h>
 #define ContentDistance 10
 #define MoveDistance self.map.width / 4
 #define NumOfMega 3
@@ -19,6 +19,8 @@
 @interface BKWarChessController (){
     int mapScore[5][5];
 }
+
+@property(nonatomic,strong)AVAudioPlayer *player;
 
 @property (weak, nonatomic) UIImageView *map;
 
@@ -31,6 +33,12 @@
 
 /**顶部提示框*/
 @property (nonatomic,weak)UIButton *topBtn;
+
+/**音乐改变*/
+@property (nonatomic, weak)UIButton *changMusic;
+
+/**重新开始按钮*/
+@property (nonatomic, weak)UIButton *reStartBtn;
 
 /**A队名*/
 @property (nonatomic, weak)UILabel *portraitLabelA;
@@ -176,13 +184,13 @@
         self.personBtnB.isMoved = NO;
         if(self.turning % 2 == 1){
                 [self.personBtnA btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
-            if(mapScore[self.personBtnA.i][self.personBtnA.j] == 2){
+            if(mapScore[self.personBtnA.i][self.personBtnA.j] == 2&&self.personBtnA.isMoved){
                 [self performSelector:@selector(playAnimation:) withObject:self.personBtnA afterDelay:0.5];
             }
         }else if(self.turning % 2 == 0){
                 [self.personBtnB btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
     
-            if(mapScore[self.personBtnB.i][self.personBtnB.j] == 2){
+            if(mapScore[self.personBtnB.i][self.personBtnB.j] == 2&&self.personBtnB.isMoved){
                 [self performSelector:@selector(playAnimation:) withObject:self.personBtnB afterDelay:0.5];
             }
         }
@@ -262,7 +270,8 @@
     self.turning = 1;
     
     [self setUpUI];
-
+    
+    [self startOrStopMusic];
 }
 
 //初始化地图
@@ -299,6 +308,22 @@
     [topBtn setTitle:@"火箭队出击" forState:UIControlStateNormal];
     [self.view addSubview:topBtn];
     self.topBtn = topBtn;
+    
+    UIButton *stopMusic = [[UIButton alloc] init];
+    stopMusic.frame = CGRectMake(ContentDistance, ContentDistance + CGRectGetMaxY(self.topBtn.frame), self.view.width - 2 * ContentDistance, 30);
+    [stopMusic setBackgroundImage:[UIImage imageNamed:@"kuang"] forState:UIControlStateNormal];
+    [stopMusic setTitle:@"停止音乐" forState:UIControlStateNormal];
+    [stopMusic addTarget:self action:@selector(startOrStopMusic) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:stopMusic];
+    self.changMusic =stopMusic;
+    
+    UIButton *reStart = [[UIButton alloc] init];
+    reStart.frame = CGRectMake(ContentDistance, ContentDistance + CGRectGetMaxY(self.changMusic.frame), self.view.width - 2 * ContentDistance, 30);
+    [reStart setBackgroundImage:[UIImage imageNamed:@"kuang"] forState:UIControlStateNormal];
+    [reStart setTitle:@"重新开始" forState:UIControlStateNormal];
+    [reStart addTarget:self action:@selector(restart) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:reStart];
+    self.reStartBtn =reStart;
     
     UIButton *portraitBtnA = [[UIButton alloc] init];
     portraitBtnA.frame = CGRectMake(ContentDistance, CGRectGetMaxY(self.map.frame) + ContentDistance * 3, 80, 80);
@@ -347,6 +372,34 @@
     [self personBtnB];
     
     [self updateTopBtn];
+}
+
+-(void)restart
+{
+    self.personBtnA.center = CGPointMake(CGRectGetMinX(self.map.frame), CGRectGetMinY(self.map.frame));
+    self.personBtnB.center = CGPointMake(CGRectGetMaxX(self.map.frame), CGRectGetMaxY(self.map.frame));
+    self.turning = 1;
+    [self updateTopBtn];
+}
+
+-(void)startOrStopMusic
+{
+    if(self.player == nil){
+        //1.音频文件的url路径
+        NSURL *url=[[NSBundle mainBundle]URLForResource:@"middleMusic.MP3" withExtension:Nil];
+        
+        //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
+        self.player=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
+        
+        //3.缓冲
+        [self.player prepareToPlay];
+        [self.player play];
+         [self.changMusic setTitle:@"停止音乐" forState:UIControlStateNormal];
+    }else{
+        [self.player stop];
+        self.player = nil;
+        [self.changMusic setTitle:@"开始音乐" forState:UIControlStateNormal];
+    }
 }
 
 //更新地图上跟种类分布

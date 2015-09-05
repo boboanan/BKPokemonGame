@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "BKWarChessController.h"
+#import "BKStartViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    BKWarChessController *controller = [[BKWarChessController alloc] init];
+    BKStartViewController *controller = [[BKStartViewController alloc] init];
     
     self.window.rootViewController = controller;
     

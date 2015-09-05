@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9705F5D01B9B418D00E2BFF4 /* startMusic.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 9705F5CF1B9B418D00E2BFF4 /* startMusic.MP3 */; };
+		9705F5D21B9B41B000E2BFF4 /* middleMusic.MP3 in Resources */ = {isa = PBXBuildFile; fileRef = 9705F5D11B9B41B000E2BFF4 /* middleMusic.MP3 */; };
+		9705F5D51B9B460800E2BFF4 /* BKStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9705F5D41B9B460800E2BFF4 /* BKStartViewController.m */; };
 		97062CC61B9971D1002DDFC5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97062CC51B9971D1002DDFC5 /* main.m */; };
 		97062CC91B9971D1002DDFC5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97062CC81B9971D1002DDFC5 /* AppDelegate.m */; };
 		97062CD11B9971D1002DDFC5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97062CD01B9971D1002DDFC5 /* Images.xcassets */; };
@@ -27,6 +30,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9705F5CF1B9B418D00E2BFF4 /* startMusic.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = startMusic.MP3; sourceTree = "<group>"; };
+		9705F5D11B9B41B000E2BFF4 /* middleMusic.MP3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = middleMusic.MP3; sourceTree = "<group>"; };
+		9705F5D31B9B460800E2BFF4 /* BKStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKStartViewController.h; sourceTree = "<group>"; };
+		9705F5D41B9B460800E2BFF4 /* BKStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKStartViewController.m; sourceTree = "<group>"; };
 		97062CC01B9971D1002DDFC5 /* BKWarChess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKWarChess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97062CC41B9971D1002DDFC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97062CC51B9971D1002DDFC5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -83,6 +90,8 @@
 		97062CC21B9971D1002DDFC5 /* BKWarChess */ = {
 			isa = PBXGroup;
 			children = (
+				9705F5D31B9B460800E2BFF4 /* BKStartViewController.h */,
+				9705F5D41B9B460800E2BFF4 /* BKStartViewController.m */,
 				97F882441B99F28B006E7D31 /* BKWarChessController.h */,
 				97F882451B99F28B006E7D31 /* BKWarChessController.m */,
 				97F8820B1B99E873006E7D31 /* View */,
@@ -98,6 +107,8 @@
 		97062CC31B9971D1002DDFC5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9705F5D11B9B41B000E2BFF4 /* middleMusic.MP3 */,
+				9705F5CF1B9B418D00E2BFF4 /* startMusic.MP3 */,
 				97062CC41B9971D1002DDFC5 /* Info.plist */,
 				97062CC51B9971D1002DDFC5 /* main.m */,
 			);
@@ -219,6 +230,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9705F5D21B9B41B000E2BFF4 /* middleMusic.MP3 in Resources */,
+				9705F5D01B9B418D00E2BFF4 /* startMusic.MP3 in Resources */,
 				97062CD11B9971D1002DDFC5 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9705F5D51B9B460800E2BFF4 /* BKStartViewController.m in Sources */,
 				97F882461B99F28B006E7D31 /* BKWarChessController.m in Sources */,
 				97062CC91B9971D1002DDFC5 /* AppDelegate.m in Sources */,
 				97F8820A1B99D841006E7D31 /* UIView+Extension.m in Sources */,

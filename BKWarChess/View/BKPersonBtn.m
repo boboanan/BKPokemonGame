@@ -94,7 +94,6 @@
                 }];
                 self.isMoved = YES;
                 self.canMove = false;
-                NSLog(@"gogogoogogoo");
             }
             if(touchPoint.x > self.centerX&&self.canRight){
                 [UIView animateWithDuration:duration animations:^{
@@ -103,7 +102,6 @@
                 }];
                 self.isMoved = YES;
                 self.canMove = false;
-                NSLog(@"gogogoogogoo");
             }
             
         }else if(fabs(touchPoint.x-self.centerX)<fabs(touchPoint.y-self.centerY)){
@@ -114,7 +112,6 @@
                 }];
                 self.isMoved = YES;
                 self.canMove = false;
-                NSLog(@"gogogoogogoo");
             }
             if(touchPoint.y > self.centerY&&self.canDown){
                 [UIView animateWithDuration:duration animations:^{
@@ -123,7 +120,6 @@
                 }];
                 self.isMoved = YES;
                 self.canMove = false;
-                NSLog(@"1111gogogoogogoo");
             }
         }
         
