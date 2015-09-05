@@ -159,10 +159,23 @@
     [self.personBtnB btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
     
     if(mapScore[self.personBtnA.i][self.personBtnA.j] == 2){
-  
-        NSLog(@"get spirit");
+        [self performSelector:@selector(playAnimation) withObject:nil afterDelay:1];
     }
     
+}
+         
+-(void)playAnimation
+{
+    CGFloat dis = self.view.height / 3;
+    UIImageView *gifImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, dis, self.view.width, dis)];
+    NSArray *gifArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"pikaqiuA"],
+                         [UIImage imageNamed:@"pikaqiuB"],
+                         nil];
+    gifImageView.animationImages = gifArray; //动画图片数组
+    gifImageView.animationDuration = 1; //执行一次完整动画所需的时长
+    gifImageView.animationRepeatCount = 2;  //动画重复次数
+    [gifImageView startAnimating];
+    [self.view addSubview:gifImageView];
 }
 
 
