@@ -42,6 +42,7 @@
     BKPersonBtn *btn = [[self alloc] initWithFrame:rect];
     [btn setBackgroundImage:[UIImage imageNamed:spriteArray[random]] forState:UIControlStateNormal];
     [btn setTitle:spriteLevel[random] forState:UIControlStateNormal];
+    btn.spriteName = spriteArray[random];
     btn.userInteractionEnabled = NO;
     btn.category = 2;
     return btn;
@@ -83,44 +84,46 @@
     }else{
         self.canUp = YES;
     }
-    
     if(self.canMove){
-        self.isMoved = NO;
         CGFloat duration = 0.5;
-        if(fabs(touchPoint.x-self.x)>=fabs(touchPoint.y-self.y)){
-            if(touchPoint.x < self.x&&self.canLeft){
+        if(fabs(touchPoint.x-self.centerX)>fabs(touchPoint.y-self.centerY)){
+            if(touchPoint.x < self.centerX&&self.canLeft){
                 [UIView animateWithDuration:duration animations:^{
                     self.x -= MoveDistance;
                     self.i--;
-                    self.isMoved = YES;
-                    self.canMove = false;
                 }];
+                self.isMoved = YES;
+                self.canMove = false;
+                NSLog(@"gogogoogogoo");
             }
-            if(touchPoint.x > self.x&&self.canRight){
+            if(touchPoint.x > self.centerX&&self.canRight){
                 [UIView animateWithDuration:duration animations:^{
-                    self.x += MoveDistance;
+                    self.centerX += MoveDistance;
                     self.i++;
-                    self.isMoved = YES;
-                    self.canMove = false;
                 }];
+                self.isMoved = YES;
+                self.canMove = false;
+                NSLog(@"gogogoogogoo");
             }
             
-        }else{
-            if(touchPoint.y < self.y&&self.canUp){
+        }else if(fabs(touchPoint.x-self.centerX)<fabs(touchPoint.y-self.centerY)){
+            if(touchPoint.y < self.centerY&&self.canUp){
                 [UIView animateWithDuration:duration animations:^{
-                    self.y -= MoveDistance;
+                    self.centerY -= MoveDistance;
                     self.j--;
-                    self.isMoved = YES;
-                    self.canMove = false;
                 }];
+                self.isMoved = YES;
+                self.canMove = false;
+                NSLog(@"gogogoogogoo");
             }
-            if(touchPoint.y > self.y&&self.canDown){
+            if(touchPoint.y > self.centerY&&self.canDown){
                 [UIView animateWithDuration:duration animations:^{
-                    self.y += MoveDistance;
+                    self.centerY += MoveDistance;
                     self.j++;
-                    self.isMoved = YES;
-                    self.canMove = false;
                 }];
+                self.isMoved = YES;
+                self.canMove = false;
+                NSLog(@"1111gogogoogogoo");
             }
         }
         

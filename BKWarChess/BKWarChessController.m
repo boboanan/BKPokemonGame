@@ -29,6 +29,14 @@
 
 @property (weak, nonatomic) UIButton * portraitBtnA;
 
+/**顶部提示框*/
+@property (nonatomic,weak)UIButton *topBtn;
+
+/**A队名*/
+@property (nonatomic, weak)UILabel *portraitLabelA;
+/**B队名*/
+@property (nonatomic, weak)UILabel *portraitLabelB;
+
 /**精灵数组*/
 @property (strong, nonatomic)NSMutableArray *sprites;
 /**mega石数组*/
@@ -95,6 +103,7 @@
         btn.category = 0;
         btn.i = 0;
         btn.j = 0;
+        btn.tag = 0;
         [self.view addSubview:btn];
         _personBtnA = btn;
     }
@@ -110,6 +119,7 @@
         btn.category = 1;
         btn.i = 4;
         btn.j = 4;
+        btn.tag = 1;
         [self.view addSubview:btn];
         _personBtnB = btn;
     }
@@ -122,16 +132,17 @@
     if(self.turning % 2 == 1){
         sender.canMove = true;
     }
-        CGFloat duration = 0.5;
+    CGFloat duration = 0.5;
+    [UIView animateWithDuration:duration animations:^{
+        self.portraitA.width =  1.1 * self.portraitA.width ;
+        self.portraitA.height = 1.1 *self.portraitA.height;
+    } completion:^(BOOL finished) {
         [UIView animateWithDuration:duration animations:^{
-            self.portraitB.width =  1.1 * self.portraitB.width ;
-            self.portraitB.height = 1.1 *self.portraitB.height;
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:duration animations:^{
-                self.portraitB.width =  self.portraitB.width / 1.1;
-                self.portraitB.height = self.portraitB.height / 1.1;
-            }];
+            self.portraitA.width =  self.portraitA.width / 1.1;
+            self.portraitA.height = self.portraitA.height / 1.1;
         }];
+    }];
+
 }
 
 //b的移动方法
@@ -141,16 +152,16 @@
     if(self.turning % 2 == 0){
         sender.canMove = true;
     }
-        CGFloat duration = 0.5;
+    CGFloat duration = 0.5;
+    [UIView animateWithDuration:duration animations:^{
+        self.portraitB.width =  1.1 * self.portraitB.width ;
+        self.portraitB.height = 1.1 *self.portraitB.height;
+    } completion:^(BOOL finished) {
         [UIView animateWithDuration:duration animations:^{
-            self.portraitA.width =  1.1 * self.portraitA.width ;
-            self.portraitA.height = 1.1 *self.portraitA.height;
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:duration animations:^{
-                self.portraitA.width =  self.portraitA.width / 1.1;
-                self.portraitA.height = self.portraitA.height / 1.1;
-            }];
+            self.portraitB.width =  self.portraitB.width / 1.1;
+            self.portraitB.height = self.portraitB.height / 1.1;
         }];
+    }];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -161,13 +172,19 @@
         
         CGPoint touchPoint = [touch locationInView:self.view];
         //touchPoint.x ，touchPoint.y 就是触点的坐标。
+        self.personBtnA.isMoved = NO;
+        self.personBtnB.isMoved = NO;
         if(self.turning % 2 == 1){
-            [self.personBtnA btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
+                [self.personBtnA btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
             if(mapScore[self.personBtnA.i][self.personBtnA.j] == 2){
-                [self performSelector:@selector(playAnimation) withObject:nil afterDelay:0.5];
+                [self performSelector:@selector(playAnimation:) withObject:self.personBtnA afterDelay:0.5];
             }
         }else if(self.turning % 2 == 0){
-            [self.personBtnB btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
+                [self.personBtnB btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
+    
+            if(mapScore[self.personBtnB.i][self.personBtnB.j] == 2){
+                [self performSelector:@selector(playAnimation:) withObject:self.personBtnB afterDelay:0.5];
+            }
         }
         if(self.personBtnA.isMoved || self.personBtnB.isMoved){
             self.turning++;
@@ -176,22 +193,63 @@
 
     self.personBtnA.canMove = false;
     self.personBtnA.canMove = false;
+    [self performSelector:@selector(updateTopBtn) withObject:nil afterDelay:0.5];
+
 }
 
+//更新顶部提示内容
+-(void)updateTopBtn
+{
+    NSString *team = self.turning%2 ? self.portraitLabelA.text:self.portraitLabelB.text;
+    NSString *title = [NSString stringWithFormat:@"第%d步:%@出击",self.turning,team];
+    [self.topBtn setTitle:title forState:UIControlStateNormal];
+}
 
 //播放动画
--(void)playAnimation
+-(void)playAnimation:(BKPersonBtn *)btn
 {
-    CGFloat dis = self.view.height / 3;
-    UIImageView *gifImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, dis, self.view.width, dis)];
-    NSArray *gifArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"pikaqiuA"],
-                         [UIImage imageNamed:@"pikaqiuB"],
-                         nil];
-    gifImageView.animationImages = gifArray; //动画图片数组
-    gifImageView.animationDuration = 1; //执行一次完整动画所需的时长
-    gifImageView.animationRepeatCount = 2;  //动画重复次数
-    [gifImageView startAnimating];
-    [self.view addSubview:gifImageView];
+    UIView *view  = [[UIView alloc] initWithFrame:self.view.bounds];
+    view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+    [self.view addSubview:view];
+
+    [UIView animateWithDuration:3 animations:^{
+         view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    } completion:^(BOOL finished) {
+        
+    }];
+    if(btn.tag == 0){
+        CGFloat dis = self.view.height / 3;
+        UIImageView *gifImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, dis, self.view.width, dis)];
+        //    NSArray *gifArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"pikaqiuA"],
+        //                         [UIImage imageNamed:@"pikaqiuB"],
+        //                         nil];
+        NSMutableArray *gifArray = [NSMutableArray array];
+        for(int i=1; i<18;i++){
+            NSString *name = [NSString stringWithFormat:@"penhuolong%d",i];
+            [gifArray addObject:[UIImage imageNamed:name]];
+        }
+        gifImageView.animationImages = gifArray; //动画图片数组
+        gifImageView.animationDuration = 2.5; //执行一次完整动画所需的时长
+        gifImageView.animationRepeatCount = 1;  //动画重复次数
+        [gifImageView startAnimating];
+        [self.view addSubview:gifImageView];
+    }else{
+        CGFloat dis = self.view.height / 3;
+        UIImageView *gifImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, dis, self.view.width, dis)];
+        NSArray *gifArray = [NSArray arrayWithObjects:[UIImage imageNamed:@"pikaqiuA"],
+                             [UIImage imageNamed:@"pikaqiuB"],
+                             nil];
+        gifImageView.animationImages = gifArray; //动画图片数组
+        gifImageView.animationDuration = 1; //执行一次完整动画所需的时长
+        gifImageView.animationRepeatCount = 2;  //动画重复次数
+        [gifImageView startAnimating];
+        [self.view addSubview:gifImageView];
+    }
+    [UIView animateWithDuration:3 animations:^{
+        view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+    } completion:^(BOOL finished) {
+        [view removeFromSuperview];
+    }];
 }
 
 
@@ -240,6 +298,7 @@
     [topBtn setBackgroundImage:[UIImage imageNamed:@"kuang"] forState:UIControlStateNormal];
     [topBtn setTitle:@"火箭队出击" forState:UIControlStateNormal];
     [self.view addSubview:topBtn];
+    self.topBtn = topBtn;
     
     UIButton *portraitBtnA = [[UIButton alloc] init];
     portraitBtnA.frame = CGRectMake(ContentDistance, CGRectGetMaxY(self.map.frame) + ContentDistance * 3, 80, 80);
@@ -271,6 +330,7 @@
     portraitLabelA.textAlignment = NSTextAlignmentCenter;
     portraitLabelA.textColor = [UIColor whiteColor];
     [self.view addSubview:portraitLabelA];
+    self.portraitLabelA = portraitLabelA;
     
     UILabel *portraitLabelB = [[UILabel alloc] init];
     portraitLabelB.x = CGRectGetMinX(portraitBtnB.frame);
@@ -281,12 +341,12 @@
     portraitLabelB.textAlignment = NSTextAlignmentCenter;
     portraitLabelB.textColor = [UIColor whiteColor];
     [self.view addSubview:portraitLabelB];
-
+    self.portraitLabelB = portraitLabelB;
     
     [self personBtnA];
     [self personBtnB];
     
-
+    [self updateTopBtn];
 }
 
 //更新地图上跟种类分布

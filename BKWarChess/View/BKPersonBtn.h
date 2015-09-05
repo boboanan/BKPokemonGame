@@ -27,6 +27,9 @@
 //0-a队,1-b队,2-精灵,3-mega石
 @property(nonatomic)int category;
 
+/**小精灵名字*/
+@property (nonatomic, strong)NSString *spriteName;
+
 /**人物*/
 +(instancetype)getBKPersonBtnWithImageName:(NSString *)image;
 /**小精灵*/
