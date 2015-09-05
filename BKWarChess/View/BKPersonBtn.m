@@ -85,36 +85,43 @@
     }
     
     if(self.canMove){
-        
+        self.isMoved = NO;
         CGFloat duration = 0.5;
         if(fabs(touchPoint.x-self.x)>=fabs(touchPoint.y-self.y)){
             if(touchPoint.x < self.x&&self.canLeft){
                 [UIView animateWithDuration:duration animations:^{
                     self.x -= MoveDistance;
                     self.i--;
+                    self.isMoved = YES;
+                    self.canMove = false;
                 }];
             }
             if(touchPoint.x > self.x&&self.canRight){
                 [UIView animateWithDuration:duration animations:^{
                     self.x += MoveDistance;
                     self.i++;
+                    self.isMoved = YES;
+                    self.canMove = false;
                 }];
             }
-            self.canMove = false;
+            
         }else{
             if(touchPoint.y < self.y&&self.canUp){
                 [UIView animateWithDuration:duration animations:^{
                     self.y -= MoveDistance;
                     self.j--;
+                    self.isMoved = YES;
+                    self.canMove = false;
                 }];
             }
             if(touchPoint.y > self.y&&self.canDown){
                 [UIView animateWithDuration:duration animations:^{
                     self.y += MoveDistance;
                     self.j++;
+                    self.isMoved = YES;
+                    self.canMove = false;
                 }];
             }
-            self.canMove = false;
         }
         
     }

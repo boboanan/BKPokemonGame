@@ -38,6 +38,9 @@
 @property (nonatomic, weak)UIButton *portraitA;
 /**portraitB队头像*/
 @property (nonatomic, weak)UIButton *portraitB;
+
+/**回合轮到谁*/
+@property (nonatomic)int turning;
 @end
 
 @implementation BKWarChessController
@@ -88,7 +91,7 @@
     if(_personBtnA == nil){
         BKPersonBtn *btn = [BKPersonBtn getBKPersonBtnWithImageName:@"circle_a"];
          btn.center = CGPointMake(CGRectGetMinX(self.map.frame), CGRectGetMinY(self.map.frame));
-        [btn addTarget:self action:@selector(personMove:) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(personAMove:) forControlEvents:UIControlEventTouchUpInside];
         btn.category = 0;
         btn.i = 0;
         btn.j = 0;
@@ -103,7 +106,7 @@
     if(_personBtnB == nil){
         BKPersonBtn *btn = [BKPersonBtn getBKPersonBtnWithImageName:@"circle_b"];
         btn.center = CGPointMake(CGRectGetMaxX(self.map.frame), CGRectGetMaxY(self.map.frame));
-        [btn addTarget:self action:@selector(personMove:) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(personBMove:) forControlEvents:UIControlEventTouchUpInside];
         btn.category = 1;
         btn.i = 4;
         btn.j = 4;
@@ -113,28 +116,12 @@
     return _personBtnB;
 }
 
-
--(void)personMove:(BKPersonBtn *)sender
+//a的移动方法
+-(void)personAMove:(BKPersonBtn *)sender
 {
-    sender.canMove = !sender.canMove;
-    
-    if(sender.category == 0){
-        self.personBtnB.canMove = !self.personBtnA.canMove;
-        
-        CGFloat duration = 0.5;
-        [UIView animateWithDuration:duration animations:^{
-            self.portraitA.width =  1.1 * self.portraitA.width ;
-            self.portraitA.height = 1.1 *self.portraitA.height;
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:duration animations:^{
-                self.portraitA.width =  self.portraitA.width / 1.1;
-                self.portraitA.height = self.portraitA.height / 1.1;
-            }];
-        }];
-
-    }else if (sender.category == 1){
-        self.personBtnA.canMove = !self.personBtnB.canMove;
-        
+    if(self.turning % 2 == 1){
+        sender.canMove = true;
+    }
         CGFloat duration = 0.5;
         [UIView animateWithDuration:duration animations:^{
             self.portraitB.width =  1.1 * self.portraitB.width ;
@@ -145,25 +132,54 @@
                 self.portraitB.height = self.portraitB.height / 1.1;
             }];
         }];
-    }
+}
 
+//b的移动方法
+-(void)personBMove:(BKPersonBtn *)sender
+{
+
+    if(self.turning % 2 == 0){
+        sender.canMove = true;
+    }
+        CGFloat duration = 0.5;
+        [UIView animateWithDuration:duration animations:^{
+            self.portraitA.width =  1.1 * self.portraitA.width ;
+            self.portraitA.height = 1.1 *self.portraitA.height;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:duration animations:^{
+                self.portraitA.width =  self.portraitA.width / 1.1;
+                self.portraitA.height = self.portraitA.height / 1.1;
+            }];
+        }];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = [touches anyObject];
-    
-    CGPoint touchPoint = [touch locationInView:self.view];
-    //touchPoint.x ，touchPoint.y 就是触点的坐标。
-    [self.personBtnA btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
-    [self.personBtnB btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
-    
-    if(mapScore[self.personBtnA.i][self.personBtnA.j] == 2){
-        [self performSelector:@selector(playAnimation) withObject:nil afterDelay:1];
+    //只有按钮被激活才会判断是否移动
+    if(self.personBtnA.canMove || self.personBtnB.canMove){
+        UITouch *touch = [touches anyObject];
+        
+        CGPoint touchPoint = [touch locationInView:self.view];
+        //touchPoint.x ，touchPoint.y 就是触点的坐标。
+        if(self.turning % 2 == 1){
+            [self.personBtnA btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
+            if(mapScore[self.personBtnA.i][self.personBtnA.j] == 2){
+                [self performSelector:@selector(playAnimation) withObject:nil afterDelay:0.5];
+            }
+        }else if(self.turning % 2 == 0){
+            [self.personBtnB btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
+        }
+        if(self.personBtnA.isMoved || self.personBtnB.isMoved){
+            self.turning++;
+        }
     }
-    
+
+    self.personBtnA.canMove = false;
+    self.personBtnA.canMove = false;
 }
-         
+
+
+//播放动画
 -(void)playAnimation
 {
     CGFloat dis = self.view.height / 3;
@@ -185,7 +201,7 @@
     [self initMapScore];
     
     self.view.backgroundColor = [UIColor blueColor];
-  
+    self.turning = 1;
     
     [self setUpUI];
 

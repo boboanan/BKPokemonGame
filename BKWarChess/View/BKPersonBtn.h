@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface BKPersonBtn : UIButton
 
 @property (nonatomic)BOOL canMove;
@@ -21,6 +20,8 @@
 /**位置*/
 @property (nonatomic) NSUInteger i;
 @property (nonatomic) NSUInteger j;
+/**能移动时是否移动了*/
+@property (nonatomic) BOOL isMoved;
 
 /**按钮类型*/
 //0-a队,1-b队,2-精灵,3-mega石
