@@ -31,7 +31,6 @@
             imageView.alpha = 0;
         } completion:^(BOOL finished) {
             [self playMovie];
-//            [UIApplication sharedApplication].keyWindow.rootViewController = [[BKWarChessController alloc] init];
         }];
     }];
 
@@ -47,35 +46,26 @@
 
 -(void)addNotification{
     NSNotificationCenter *notificationCenter=[NSNotificationCenter defaultCenter];
-    [notificationCenter addObserver:self selector:@selector(mediaPlayerPlaybackStateChange:) name:MPMoviePlayerPlaybackStateDidChangeNotification object:self.moviePlayer.moviePlayer];
     [notificationCenter addObserver:self selector:@selector(mediaPlayerPlaybackFinished:) name:MPMoviePlayerPlaybackDidFinishNotification object:self.moviePlayer.moviePlayer];
     
 }
 
--(void)mediaPlayerPlaybackStateChange:(NSNotification *)notification{
-//    switch (self.moviePlayer.moviePlayer.playbackState) {
-//        case MPMoviePlaybackStatePlaying:
-//            NSLog(@"正在播放...");
-//            break;
-//        case MPMoviePlaybackStatePaused:
-//            NSLog(@"暂停播放.");
-//            break;
-//        case MPMoviePlaybackStateStopped:
-//            NSLog(@"停止播放.");
-//            break;
-//        default:
-//            NSLog(@"播放状态:%li",self.moviePlayer.moviePlayer.playbackState);
-//            break;
-//    }
-}
 
-/**
- *  播放完成
- *
- *  @param notification 通知对象
- */
+/**播放完成*/
 -(void)mediaPlayerPlaybackFinished:(NSNotification *)notification{
-      [UIApplication sharedApplication].keyWindow.rootViewController = [[BKWarChessController alloc] init];
+    UIView *view= [[UIView alloc] initWithFrame:self.view.bounds];
+    view.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:view];
+    view.alpha = 0;
+    [UIView animateWithDuration:3 animations:^{
+        view.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:3 animations:^{
+            view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [UIApplication sharedApplication].keyWindow.rootViewController = [[BKWarChessController alloc] init];
+        }];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,14 +73,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
