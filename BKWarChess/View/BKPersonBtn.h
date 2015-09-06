@@ -23,6 +23,13 @@
 /**能移动时是否移动了*/
 @property (nonatomic) BOOL isMoved;
 
+/**攻击力*/
+@property (nonatomic)NSInteger attack;
+/**得到小精灵的等级*/
+@property (nonatomic, copy)NSString *level;
+/**是否得到mega石*/
+@property (nonatomic)BOOL isGotMega;
+
 /**按钮类型*/
 //0-a队,1-b队,2-精灵,3-mega石
 @property(nonatomic)int category;
@@ -40,4 +47,6 @@
 
 
 -(void)btnMoveMethodWithFrame:(CGRect)frame TouchPoint:(CGPoint)touchPoint;
+//得到攻击力
+-(NSInteger)gotAttack;
 @end

@@ -192,16 +192,18 @@
         if(self.turning % 2 == 1){
                 [self.personBtnA btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
             if(mapScore[self.personBtnA.i][self.personBtnA.j] == 2&&self.personBtnA.isMoved){
-                self.getSpriteLabelA.text = @"获得1只小精灵";
                 [self performSelector:@selector(playAnimation:) withObject:self.personBtnA afterDelay:0.5];
             }
+            self.getSpriteLabelA.text = [self judgeWithBtn:self.personBtnA];
+            [self judgeVictoryWithBtn:self.personBtnA];
         }else if(self.turning % 2 == 0){
                 [self.personBtnB btnMoveMethodWithFrame:self.map.frame TouchPoint:touchPoint];
     
             if(mapScore[self.personBtnB.i][self.personBtnB.j] == 2&&self.personBtnB.isMoved){
-                self.getSpriteLabelB.text = @"获得1只小精灵";
                 [self performSelector:@selector(playAnimation:) withObject:self.personBtnB afterDelay:0.5];
             }
+            self.getSpriteLabelB.text = [self judgeWithBtn:self.personBtnB];
+            [self judgeVictoryWithBtn:self.personBtnB];
         }
         if(self.personBtnA.isMoved || self.personBtnB.isMoved){
             self.turning++;
@@ -211,7 +213,123 @@
     self.personBtnA.canMove = false;
     self.personBtnA.canMove = false;
     [self performSelector:@selector(updateTopBtn) withObject:nil afterDelay:0.5];
+#warning ceshi
+    NSLog(@"火箭队i－%d-j-%d－－岩浆队队i－%d-j-%d",self.personBtnA.i,self.personBtnA.j,self.personBtnB.i,self.personBtnB.j);
+}
 
+//判断显示和自己战况
+-(NSString *)judgeWithBtn:(BKPersonBtn *)btn
+{
+    //此处为方便写死了，为了通用，可以便利得到信息
+    if((btn.i == 4&&btn.j == 0)||(btn.i == 0&&btn.j == 4)||(btn.i == 2&&btn.j == 2)){//mega石
+        btn.isGotMega = true;
+    }else if(btn.i == 1&&btn.j == 1){
+        btn.level = [self.sprites[0] currentTitle];
+    }else if(btn.i == 1&&btn.j == 3){
+        btn.level = [self.sprites[1] currentTitle];
+    }else if(btn.i == 3&&btn.j == 3){
+        btn.level = [self.sprites[2] currentTitle];
+    }
+    [btn gotAttack];
+    NSString *situation = nil;
+    if(btn.level){
+        if(btn.isGotMega){
+            situation = [NSString stringWithFormat:@"获得%@，有mega石",btn.level];
+        }else{
+            situation = [NSString stringWithFormat:@"获得%@，没有mega石",btn.level];
+        }
+    }else{
+        situation = @"没有获得小精灵";
+    }
+    return situation;
+}
+
+//判断胜利
+-(void)judgeVictoryWithBtn:(BKPersonBtn *)btn
+{
+    if(btn.category == 0&&btn.i == 4&&btn.j == 4){
+//        UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
+//        view.backgroundColor = [UIColor blackColor];
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 40)];
+//        label.text = @"火箭队获胜";
+//        label.textColor = [UIColor whiteColor];
+//        label.textAlignment = NSTextAlignmentCenter;
+//        label.center = CGPointMake(self.view.width/2, self.view.height/2);
+//        [view addSubview:label];
+//        [self.view addSubview:view];
+//        view.alpha = 0;
+//        [UIView animateWithDuration:3 animations:^{
+//            view.alpha = 1;
+//        } completion:^(BOOL finished) {
+//            [UIView animateWithDuration:2 animations:^{
+//                view.alpha = 0;
+//            } completion:^(BOOL finished) {
+//
+//            }];
+//        }];
+        [self victoryUIWithString:@"火箭队获胜"];
+#warning ceshi
+         NSLog(@"火箭队队获胜");
+//        [self restart];
+    }else if (btn.category == 1&&btn.i == 0&&btn.j == 0){
+//        UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
+//        view.backgroundColor = [UIColor blackColor];
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 40)];
+//        label.text = @"岩浆队队获胜";
+//        label.textColor = [UIColor whiteColor];
+//        label.textAlignment = NSTextAlignmentCenter;
+//        label.center = CGPointMake(self.view.width/2, self.view.height/2);
+//        [view addSubview:label];
+//        [self.view addSubview:view];
+//        view.alpha = 0;
+//        [UIView animateWithDuration:3 animations:^{
+//            view.alpha = 1;
+//        } completion:^(BOOL finished) {
+//            [UIView animateWithDuration:2 animations:^{
+//                view.alpha = 0;
+//            } completion:^(BOOL finished) {
+//                
+//            }];
+//        }];
+        [self victoryUIWithString:@"岩浆队获胜"];
+#warning ceshi
+        NSLog(@"岩浆队队获胜");
+//        [self restart];
+    }
+    if(self.personBtnA.i == self.personBtnB.i&&self.personBtnA.j == self.personBtnB.j){
+        if(self.personBtnA.attack > self.personBtnB.attack){
+           [self victoryUIWithString:@"火箭队获胜"];
+        }else if(self.personBtnA.attack > self.personBtnB.attack){
+           [self victoryUIWithString:@"岩浆队获胜"];
+        }else{
+           [self victoryUIWithString:@"平局"];
+        }
+//        [self restart];
+    }
+   
+}
+
+-(void)victoryUIWithString:(NSString *)vicName
+{
+    UIView *view = [[UIView alloc] initWithFrame:self.view.bounds];
+    view.backgroundColor = [UIColor blackColor];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 40)];
+    label.text = vicName;
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.center = CGPointMake(self.view.width/2, self.view.height/2);
+    [view addSubview:label];
+    [self.view addSubview:view];
+    view.alpha = 0;
+    [UIView animateWithDuration:3 animations:^{
+        view.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:2 animations:^{
+            view.alpha = 0;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }];
 }
 
 //更新顶部提示内容
@@ -291,10 +409,12 @@
             mapScore[i][j] = 0;
         }
     }
+    //mega
     mapScore[4][0] = 3;
     mapScore[0][4] = 3;
     mapScore[2][2] = 3;
     
+    //sprites
     mapScore[1][1] = 2;
     mapScore[1][3] = 2;
     mapScore[3][3] = 2;
@@ -305,6 +425,24 @@
 -(void)setUpUI
 {
     [self map];
+    
+    UIButton *homeBtnA = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    homeBtnA.backgroundColor = [UIColor redColor];
+    homeBtnA.layer.cornerRadius = 20;
+    homeBtnA.userInteractionEnabled = NO;
+    [homeBtnA setTitle:@"H" forState:UIControlStateNormal];
+    homeBtnA.center = CGPointMake(CGRectGetMinX(self.map.frame), CGRectGetMinY(self.map.frame));
+    [self.view addSubview:homeBtnA];
+    
+    UIButton *homeBtnB = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    homeBtnB.backgroundColor = [UIColor blueColor];
+    homeBtnB.layer.cornerRadius = 20;
+    homeBtnB.userInteractionEnabled = NO;
+    [homeBtnB setTitle:@"H" forState:UIControlStateNormal];
+    homeBtnB.center = CGPointMake(CGRectGetMaxX(self.map.frame), CGRectGetMaxY(self.map.frame));
+    [self.view addSubview:homeBtnB];
+    
+    
     UIImageView *bg = [[UIImageView alloc] initWithFrame:self.view.bounds];
     bg.image = [UIImage imageNamed:@"bg"];
     bg.userInteractionEnabled = YES;
@@ -371,7 +509,7 @@
     UILabel *getSpriteLabelA = [[UILabel alloc] init];
     getSpriteLabelA.x = CGRectGetMinX(portraitBtnA.frame);
     getSpriteLabelA.y = CGRectGetMaxY(portraitLabelA.frame);
-    getSpriteLabelA.width = portraitBtnA.width;
+    getSpriteLabelA.width = portraitBtnA.width +4 *ContentDistance;
     getSpriteLabelA.height = ContentDistance;
     getSpriteLabelA.text = @"获得0支小精灵";
     getSpriteLabelA.font = [UIFont systemFontOfSize:10];
@@ -392,9 +530,9 @@
     self.portraitLabelB = portraitLabelB;
     
     UILabel *getSpriteLabelB = [[UILabel alloc] init];
-    getSpriteLabelB.x = CGRectGetMinX(portraitBtnB.frame);
+    getSpriteLabelB.x = CGRectGetMinX(portraitBtnB.frame)- 4*ContentDistance;
     getSpriteLabelB.y = CGRectGetMaxY(portraitLabelB.frame);
-    getSpriteLabelB.width = portraitBtnB.width;
+    getSpriteLabelB.width = portraitBtnB.width + 4*ContentDistance;
     getSpriteLabelB.height = ContentDistance;
     getSpriteLabelB.text = @"获得0支小精灵";
     getSpriteLabelB.font = [UIFont systemFontOfSize:10];

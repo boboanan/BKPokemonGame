@@ -11,11 +11,34 @@
 
 @implementation BKPersonBtn
 
+-(NSInteger)gotAttack
+{
+    if([self.level isEqualToString: @"Lv.1"]){
+        if(self.isGotMega){
+            _attack = 2;
+        }else{
+            _attack = 1;
+        }
+    }else if ([self.level isEqualToString: @"Lv.2"]){
+        if(self.isGotMega){
+            _attack = 3;
+        }else{
+            _attack = 2;
+        }
+    }else{
+        _attack = 0;
+    }
+    return _attack;
+}
+
 /**人物--1*/
 +(instancetype)getBKPersonBtnWithImageName:(NSString *)image
 {
     CGRect rect = CGRectMake(0, 0, 40, 40);
     BKPersonBtn *btn = [[self alloc] initWithFrame:rect];
+    btn.attack = 0;
+    btn.isGotMega = NO;
+    btn.level = nil;
     [btn setBackgroundImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
     btn.category = 1;
     return btn;
