@@ -14,6 +14,7 @@
 		97062CC91B9971D1002DDFC5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97062CC81B9971D1002DDFC5 /* AppDelegate.m */; };
 		97062CD11B9971D1002DDFC5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97062CD01B9971D1002DDFC5 /* Images.xcassets */; };
 		97062CE01B9971D1002DDFC5 /* BKWarChessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 97062CDF1B9971D1002DDFC5 /* BKWarChessTests.m */; };
+		97145C121B9BFDB9005E037C /* headAnimation.mov in Resources */ = {isa = PBXBuildFile; fileRef = 97145C111B9BFDB9005E037C /* headAnimation.mov */; };
 		97F8820A1B99D841006E7D31 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F882091B99D841006E7D31 /* UIView+Extension.m */; };
 		97F8820E1B99E89B006E7D31 /* BKPersonBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F8820D1B99E89B006E7D31 /* BKPersonBtn.m */; };
 		97F882461B99F28B006E7D31 /* BKWarChessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F882451B99F28B006E7D31 /* BKWarChessController.m */; };
@@ -43,6 +44,7 @@
 		97062CD91B9971D1002DDFC5 /* BKWarChessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BKWarChessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		97062CDE1B9971D1002DDFC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97062CDF1B9971D1002DDFC5 /* BKWarChessTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKWarChessTests.m; sourceTree = "<group>"; };
+		97145C111B9BFDB9005E037C /* headAnimation.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = headAnimation.mov; sourceTree = "<group>"; };
 		97F882081B99D841006E7D31 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		97F882091B99D841006E7D31 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		97F8820C1B99E89B006E7D31 /* BKPersonBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKPersonBtn.h; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		97062CC31B9971D1002DDFC5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				97145C111B9BFDB9005E037C /* headAnimation.mov */,
 				9705F5D11B9B41B000E2BFF4 /* middleMusic.MP3 */,
 				9705F5CF1B9B418D00E2BFF4 /* startMusic.MP3 */,
 				97062CC41B9971D1002DDFC5 /* Info.plist */,
@@ -233,6 +236,7 @@
 				9705F5D21B9B41B000E2BFF4 /* middleMusic.MP3 in Resources */,
 				9705F5D01B9B418D00E2BFF4 /* startMusic.MP3 in Resources */,
 				97062CD11B9971D1002DDFC5 /* Images.xcassets in Resources */,
+				97145C121B9BFDB9005E037C /* headAnimation.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
